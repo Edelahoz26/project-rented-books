@@ -1,0 +1,44 @@
+# Node.js
+node_modules/
+
+# Build outputs
+dist/
+out/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor and OS-specific files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Firebase-related files
+.firebase/
+firebase-debug.log
+firebaserc
+
+# Tailwind CSS
+tailwind.config.js
+postcss.config.js
+
+# Optional: Coverage and test reports
+coverage/
+*.lcov
+
+# Optional: If you're using a package manager lockfile (choose one)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
