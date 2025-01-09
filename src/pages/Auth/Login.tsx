@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { auth } from "../../firebase/firebaseConfig";
 import useAuth from "../../hooks/useAuth";
 
@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <div className="bg-custom-dark bg-backgroundCard bg-custom-gradient h-screen">
       <div className="flex justify-center items-center h-full">
-        <div className="bg-gray-900 h-[50%] w-[30%] p-6 shadow-lg shadow-blue-700/20 ">
+        <div className="bg-gray-900 h-auto w-[30%] p-6 shadow-lg shadow-blue-700/20 ">
           <form
             onSubmit={handleSubmit}
             className="flex flex-col items-start h-full justify-start gap-10"
@@ -54,6 +54,7 @@ const Login = () => {
               variant="outlined"
               value={formData.email}
               name="email"
+              required
               onChange={handleInputChange}
               sx={{
                 width: "100%",
@@ -77,6 +78,7 @@ const Login = () => {
               variant="outlined"
               value={formData.password}
               name="password"
+              required
               onChange={handleInputChange}
               sx={{
                 width: "100%",
@@ -94,6 +96,9 @@ const Login = () => {
                 },
               }}
             />
+            <div>
+              <h1 className="text-white"> ¿No tienes una cuenta? <Link to={'/register'} className="text-blue-700 hover:text-blue-600 cursor-pointer">Registrate</Link></h1>
+            </div>
             <div className="flex justify-center w-full">
               <Button type="submit" variant="outlined">
                 Ingresar

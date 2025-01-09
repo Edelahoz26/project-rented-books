@@ -26,13 +26,16 @@ const NotFound = lazy(() => import("../pages/NotFound"));
 
 const AppRoutes: React.FC = () => {
   const { isLoggedIn } = useAuth();
+
   return (
     <Router>
       <Routes>
         {/* Rutas públicas */}
         {isLoggedIn ? (
           <Route path="/home" element={<Home />} />
+
         ) : (
+          
           <>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
