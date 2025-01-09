@@ -1,8 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router";
-import { auth } from "../../firebase/firebaseConfig";
 import useAuth from "../../hooks/useAuth";
 
 interface itemFormData {
@@ -28,10 +26,9 @@ const Login = () => {
   const handleSubmit = async(event: React.FormEvent) => {
     event.preventDefault(); 
     try {
-     const {user} = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+     await login(formData.email, formData.password);
      navigate('/home');
-     login(user.uid)
-     console.log(user)
+
     } catch (error) {
       console.log(error)
     }

@@ -6,14 +6,14 @@ import { CardHomeItem } from "../../types/homeCard";
 import donquijoteIMG from "../../assets/img/donquijote.webp"
 
 const Home = () => {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, loading } = useAuth();
   console.log(isLoggedIn);
 
   const navigate = useNavigate();
 
   const logoutUser = async () => {
+    await logout();
     navigate("/");
-    logout();
   };
 
   const itemCard:CardHomeItem[]  = [
@@ -22,6 +22,8 @@ const Home = () => {
     {title: 'titulo', description: 'descripcion dawdawdawdawdawddawdawdaw', imgCard: donquijoteIMG , obtainLink: '/home'},
     
   ]
+
+  if (loading) return <h1>loading...</h1>
   
   return (
     <>

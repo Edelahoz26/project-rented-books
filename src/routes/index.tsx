@@ -1,6 +1,8 @@
 import React, { lazy } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router";
-import useAuth from "../hooks/useAuth";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
+
+import AuthRoute from "../components/Protected/AuthRoute";
+import ProjectedRoute from "../components/Protected/ProjectedRoute";
 
 // Layouts
 /* import UserLayout from "../components/Layouts/UserLayout";
@@ -25,22 +27,35 @@ const Register = lazy(() => import("../pages/Auth/Register"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 const AppRoutes: React.FC = () => {
-  const { isLoggedIn } = useAuth();
-
   return (
     <Router>
       <Routes>
         {/* Rutas públicas */}
-        {isLoggedIn ? (
-          <Route path="/home" element={<Home />} />
+        <Route
+          path="/home"
+          element={
+            <ProjectedRoute>
+              <Home />
+            </ProjectedRoute>
+          }
+        />
 
-        ) : (
-          
-          <>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </>
-        )}
+        <Route
+          path="/"
+          element={
+            <AuthRoute>
+              <Login />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <AuthRoute>
+              <Register />
+            </AuthRoute>
+          }
+        />
 
         {/* Rutas protegidas para usuarios */}
         {/*         <Route
