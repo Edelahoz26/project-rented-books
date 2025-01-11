@@ -35,13 +35,18 @@ const Register = () => {
       const user = userCredential.user
       await setDoc(doc(db, 'users', user.uid), {
         name: formData.name,
-        email: formData.email
+        email: formData.email,
+        isAdmin: false
       })
-     navigate('/');
-
+     navigate('/home');
     } catch (error) {
-      console.log(error)
-    }
+      if (typeof error == 'undefined'){
+        console.log('Error indefinido');
+      }else{
+        const {message} = error as Error
+        console.log(message)
+      }
+    } 
 
   };
   return (

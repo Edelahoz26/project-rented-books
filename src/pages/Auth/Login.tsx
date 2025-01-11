@@ -30,9 +30,16 @@ const Login = () => {
      navigate('/home');
 
     } catch (error) {
-      console.log(error)
+      
+      if (typeof error === 'undefined') {
+        console.log('Error indefinido');
+      } else {
+        const {message} = error as Error
+        console.log(message, "mensaje")
+        alert(message);
+      }
+
     }
-    console.log("envio de datos:", formData); // Aquí puedes manejar los datos del formulario
   };
   return (
     <div className="bg-custom-dark bg-backgroundCard bg-custom-gradient h-screen">
@@ -55,7 +62,7 @@ const Login = () => {
               onChange={handleInputChange}
               sx={{
                 width: "100%",
-                border: "1px solid hsl(220, 20%, 65%)",
+
                 borderRadius: "4px",
                 "& .MuiOutlinedInput-root": {
                   "&.Mui-focused fieldset": {
@@ -79,7 +86,6 @@ const Login = () => {
               onChange={handleInputChange}
               sx={{
                 width: "100%",
-                border: "1px solid hsl(220, 20%, 65%)",
                 borderRadius: "4px",
                 "& .MuiOutlinedInput-root": {
                   "&.Mui-focused fieldset": {

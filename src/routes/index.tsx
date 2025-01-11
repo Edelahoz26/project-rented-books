@@ -1,12 +1,8 @@
 import React, { lazy } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 import AuthRoute from "../components/Protected/AuthRoute";
 import ProjectedRoute from "../components/Protected/ProjectedRoute";
-
-// Layouts
-/* import UserLayout from "../components/Layouts/UserLayout";
-import AdminLayout from "../components/Layouts/AdminLayout"; */
 
 // Páginas de usuario
 /* import Home from "../pages/User/Home";
@@ -26,19 +22,40 @@ const Login = lazy(() => import("../pages/Auth/Login"));
 const Register = lazy(() => import("../pages/Auth/Register"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
+// Layouts Home
+const Books = lazy(() => import("../components/Layout/Books"));
+const Borrowed = lazy(() => import("../components/Layout/Borrowed"));
+
+
 const AppRoutes: React.FC = () => {
   return (
     <Router>
       <Routes>
         {/* Rutas públicas */}
         <Route
-          path="/home"
           element={
             <ProjectedRoute>
               <Home />
             </ProjectedRoute>
           }
-        />
+        >
+          <Route
+            path="/libros"
+            element={
+              <ProjectedRoute>
+                <Books />
+              </ProjectedRoute>
+            }
+          />
+          <Route
+            path="/prestados"
+            element={
+              <ProjectedRoute>
+                <Borrowed />
+              </ProjectedRoute>
+            }
+          />
+        </Route>
 
         <Route
           path="/"

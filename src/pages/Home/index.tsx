@@ -5,23 +5,45 @@ import CardHome from "../../components/Card";
 import { CardHomeItem } from "../../types/homeCard";
 import donquijoteIMG from "../../assets/img/donquijote.webp"
 
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
+import { useEffect, useState } from "react";
+
 const Home = () => {
   const { isLoggedIn, logout, loading } = useAuth();
+  
   console.log(isLoggedIn);
 
   const navigate = useNavigate();
 
-  const logoutUser = async () => {
-    await logout();
+  const logoutUser = () => {
+    logout();
     navigate("/");
   };
 
   const itemCard:CardHomeItem[]  = [
     {title: 'titulo', description: 'descripcion dawdawdawdawdawddawdawdaw', imgCard: donquijoteIMG , obtainLink: '/home'},
     {title: 'titulo', description: 'descripcion dawdawdawdawdawddawdawdaw', imgCard: donquijoteIMG , obtainLink: '/home'},
-    {title: 'titulo', description: 'descripcion dawdawdawdawdawddawdawdaw', imgCard: donquijoteIMG , obtainLink: '/home'},
-    
+    {title: 'titulo', description: 'descripcion dawdawdawdawdawddawdawdaw', imgCard: 'https://http2.mlstatic.com/D_NQ_NP_967922-MLU70795781552_082023-O.webp' , obtainLink: '/home'},
   ]
+
+
+  const docRef = doc(db, "books", "lr6FHS3aGGhH7Kg0KHPXHVeMyRD2");
+  const getCard = async() =>{
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
+
+  
+  useEffect(() => {
+    getCard();
+  }, [])
+  
 
   if (loading) return <h1>loading...</h1>
   
@@ -49,8 +71,8 @@ const Home = () => {
             </nav>
             <main className="h-[93%] ">
               <section className="h-full w-full pt-5">
-                <div className=" ">
-                  <CardHome items={itemCard}/>
+                <div>
+                    <CardHome items={itemCard}/>
                 </div>
               </section>
             </main>

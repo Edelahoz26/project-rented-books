@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 const AuthRoute = ({ children }: PropsWithChildren) => {
     const { isLoggedIn, loading } = useAuth();
     if (loading) return <h1>Loading...</h1>;
-    if (isLoggedIn) return <Navigate to={"/home"} />;
+    if (isLoggedIn) return <Navigate to={"/libros"} />;
     return <>{children}</>;
   }
 
