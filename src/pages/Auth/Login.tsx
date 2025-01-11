@@ -26,8 +26,8 @@ const Login = () => {
   const handleSubmit = async(event: React.FormEvent) => {
     event.preventDefault(); 
     try {
-     await login(formData.email, formData.password);
-     navigate('/home');
+     login(formData.email, formData.password);
+     navigate('/libros');
 
     } catch (error) {
       

@@ -38,7 +38,7 @@ const Register = () => {
         email: formData.email,
         isAdmin: false
       })
-     navigate('/home');
+     navigate('/libros');
     } catch (error) {
       if (typeof error == 'undefined'){
         console.log('Error indefinido');

@@ -6,7 +6,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 
 const CardHome: FC<CardHomeProps> = ({items}) => {
- 
+  
   return (
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-16 pb-0 md:px-36  justify-items-center ">
       {items.map((item, index) => (
@@ -15,7 +15,8 @@ const CardHome: FC<CardHomeProps> = ({items}) => {
                   <LazyLoadImage src={item.imgCard} alt="imgCard" className="object-contain h-full w-full"  />
                </div>
               <div className="p-5 ">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{item.title}</h5>
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{item.book}</h5>
+                  <h5 className="mb-2 text-xl font-extrabold tracking-tight text-gray-400">{item.autor}</h5>
                   <p className="mb-3 font-normal text-gray-400">{item.description}</p>
                   <div className="flex justify-between">
                   <Button variant="contained" sx={{

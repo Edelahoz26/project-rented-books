@@ -3,7 +3,8 @@ export interface CardHomeProps{
 }
 
 export interface CardHomeItem{
-  title: string;
+  autor: string;
+  book: string;
   description: string;
   imgCard: string;
   obtainLink : string;
