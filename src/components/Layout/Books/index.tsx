@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import CardHome from "../../Card"
 import { getBooks } from "../../../api/api";
-import useAuth from "../../../hooks/useAuth";
+import { Book } from "../../../interfaces/API";
+import { CircularProgress } from "@mui/material";
+
+
 
 const Books = () => {
+  const [bookData, setBookData] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [bookData, setBookData] = useState([]);
-  const { loading } = useAuth();
 
   const getCard = async() =>{
     try {
       const response = await getBooks();
-      console.log(response)
-      setBookData(response)
+      setBookData(response);
+      setLoading(false);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message)
@@ -27,7 +30,7 @@ const Books = () => {
   }, [])
   
 
-  if (loading) return <h1>loading...</h1>
+  if (loading) return <div className="w-screen text-center content-center"><CircularProgress color="primary" /></div>
                     
   return (
     <CardHome items={bookData} />

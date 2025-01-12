@@ -5,7 +5,7 @@ import { Navigate } from "react-router";
 const ProjectedRoute =({ children }: PropsWithChildren)=> {
   const { isLoggedIn, loading } = useAuth();
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return ;
   if (!isLoggedIn) return <Navigate to={"/"} />;
   return <>{children}</>;
 }

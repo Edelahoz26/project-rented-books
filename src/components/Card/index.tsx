@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
 import { FC } from "react";
-import { CardHomeProps } from "../../types/homeCard";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { BookCardProps } from "../../interfaces/API";
 
 
 
-const CardHome: FC<CardHomeProps> = ({items}) => {
+const CardHome: FC<BookCardProps> = ({items}) => {
   
   return (
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-16 pb-0 md:px-36  justify-items-center ">
@@ -32,7 +32,7 @@ const CardHome: FC<CardHomeProps> = ({items}) => {
                     color: '#ffffff',
                     "&:hover": { backgroundColor: "#01579b" },
                   }}
-                  href={item.obtainLink}
+                  href={''}
                   >
                   Obtener
                     </Button>

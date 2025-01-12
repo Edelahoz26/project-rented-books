@@ -58,11 +58,11 @@ const Login = () => {
               variant="outlined"
               value={formData.email}
               name="email"
+              color="primary"
+              fullWidth
               required
               onChange={handleInputChange}
               sx={{
-                width: "100%",
-
                 borderRadius: "4px",
                 "& .MuiOutlinedInput-root": {
                   "&.Mui-focused fieldset": {
@@ -84,8 +84,8 @@ const Login = () => {
               name="password"
               required
               onChange={handleInputChange}
+              fullWidth
               sx={{
-                width: "100%",
                 borderRadius: "4px",
                 "& .MuiOutlinedInput-root": {
                   "&.Mui-focused fieldset": {

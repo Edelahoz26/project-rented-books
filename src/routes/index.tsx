@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 import AuthRoute from "../components/Protected/AuthRoute";
 import ProjectedRoute from "../components/Protected/ProjectedRoute";
+import Dashboard from "../components/Layout/Dashboard";
 
 // Páginas de usuario
 /* import Home from "../pages/User/Home";
@@ -44,6 +45,14 @@ const AppRoutes: React.FC = () => {
             element={
               <ProjectedRoute>
                 <Books />
+              </ProjectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProjectedRoute>
+                <Dashboard />
               </ProjectedRoute>
             }
           />
