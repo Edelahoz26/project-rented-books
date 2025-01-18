@@ -5,10 +5,8 @@ import { useEffect, useState } from "react";
 import {  getUsersById } from "../../api/api";
 
 const Home = () => {
-
-
   const { isLoggedIn, logout } = useAuth();
-
+  const [isAdmin , setIsAdmin] = useState();
 
   const navigate = useNavigate();
 
@@ -17,7 +15,6 @@ const Home = () => {
     navigate("/");
   };
 
-  const [isAdmin , setIsAdmin] = useState()
   const getUsers= async () =>{
     const usersAdmin = await getUsersById(isLoggedIn as string);
     setIsAdmin(usersAdmin?.isAdmin);

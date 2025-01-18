@@ -1,9 +1,11 @@
-import React, { lazy } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import React, { lazy, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
 
 import AuthRoute from "../components/Protected/AuthRoute";
 import ProjectedRoute from "../components/Protected/ProjectedRoute";
 import Dashboard from "../components/Layout/Dashboard";
+import { getUsersById } from "../api/api";
+import useAuth from "../hooks/useAuth";
 
 // Páginas de usuario
 /* import Home from "../pages/User/Home";
@@ -29,6 +31,14 @@ const Borrowed = lazy(() => import("../components/Layout/Borrowed"));
 
 
 const AppRoutes: React.FC = () => {
+  const { isLoggedIn } = useAuth();
+  const [isAdmin , setIsAdmin] = useState();
+  const getUsers= async () =>{
+    const usersAdmin = await getUsersById(isLoggedIn as string);
+    setIsAdmin(usersAdmin?.isAdmin);
+  }
+  getUsers();
+
   return (
     <Router>
       <Routes>
@@ -48,14 +58,18 @@ const AppRoutes: React.FC = () => {
               </ProjectedRoute>
             }
           />
-          <Route
-            path="/dashboard"
-            element={
-              <ProjectedRoute>
-                <Dashboard />
-              </ProjectedRoute>
-            }
-          />
+          { isAdmin === true ?
+            <Route
+              path="/dashboard"
+              element={
+                <ProjectedRoute >
+                  <Dashboard />
+                </ProjectedRoute>
+              }
+            /> 
+            :
+<></>
+          }
           <Route
             path="/prestados"
             element={
