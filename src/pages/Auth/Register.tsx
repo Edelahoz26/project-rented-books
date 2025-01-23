@@ -36,7 +36,7 @@ const Register = () => {
       await setDoc(doc(db, 'users', user.uid), {
         name: formData.name,
         email: formData.email,
-        isAdmin: false
+        isAdmin: false,
       })
      navigate('/libros');
     } catch (error) {

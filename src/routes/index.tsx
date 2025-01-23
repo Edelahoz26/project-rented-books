@@ -1,12 +1,10 @@
 import React, { lazy, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 import AuthRoute from "../components/Protected/AuthRoute";
 import ProjectedRoute from "../components/Protected/ProjectedRoute";
-import Dashboard from "../components/Layout/Dashboard";
 import { getUsersById } from "../api/api";
 import useAuth from "../hooks/useAuth";
-
 // Páginas de usuario
 /* import Home from "../pages/User/Home";
 import BookDetails from "../pages/User/BookDetails";
@@ -25,18 +23,27 @@ const Login = lazy(() => import("../pages/Auth/Login"));
 const Register = lazy(() => import("../pages/Auth/Register"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
+//  Pagina de administrador
+const AdminDashboard = lazy(() => import("../pages/Admin"));
+const CreateBooks = lazy(
+  () => import("../components/Layout/Dashboard/DashboardBooks/Create")
+);
+
 // Layouts Home
 const Books = lazy(() => import("../components/Layout/Books"));
 const Borrowed = lazy(() => import("../components/Layout/Borrowed"));
 
-
 const AppRoutes: React.FC = () => {
   const { isLoggedIn } = useAuth();
-  const [isAdmin , setIsAdmin] = useState();
-  const getUsers= async () =>{
-    const usersAdmin = await getUsersById(isLoggedIn as string);
-    setIsAdmin(usersAdmin?.isAdmin);
-  }
+  const [isAdmin, setIsAdmin] = useState();
+  const getUsers = async () => {
+    try {
+      const usersAdmin = await getUsersById(isLoggedIn as string);
+      setIsAdmin(usersAdmin?.isAdmin);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   getUsers();
 
   return (
@@ -50,6 +57,13 @@ const AppRoutes: React.FC = () => {
             </ProjectedRoute>
           }
         >
+          {isAdmin === true && (
+            <Route path="/dashboard" element={<AdminDashboard />}>
+              {/* Rutas hijas del layout de administrador */}
+              <Route index element={<h2>Bienvenido al Dashboard</h2>} />
+              <Route path="create-books" element={<CreateBooks />} />
+            </Route>
+          )}
           <Route
             path="/libros"
             element={
@@ -58,18 +72,6 @@ const AppRoutes: React.FC = () => {
               </ProjectedRoute>
             }
           />
-          { isAdmin === true ?
-            <Route
-              path="/dashboard"
-              element={
-                <ProjectedRoute >
-                  <Dashboard />
-                </ProjectedRoute>
-              }
-            /> 
-            :
-<></>
-          }
           <Route
             path="/prestados"
             element={
@@ -79,7 +81,9 @@ const AppRoutes: React.FC = () => {
             }
           />
         </Route>
-
+        {/*         
+        <AdminDashboard />
+        <CreateBooks /> */}
         <Route
           path="/"
           element={
