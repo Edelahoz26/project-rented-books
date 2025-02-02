@@ -10,6 +10,7 @@ interface AuthProviderProps {
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean | null >(true);
   const [isLoggedIn, setAuth] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState<null | boolean>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -28,6 +29,9 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     signOut(auth)
   };
 
+  const getIsAdmin = (isAdmin: boolean | null) => {
+    setIsAdmin(isAdmin)
+  }
   useEffect(()=> {
     //analiza el estado del usuario
     onAuthStateChanged(auth, currentUser => {
@@ -40,7 +44,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     isLoggedIn,
     login,
     logout,
-    loading
+    getIsAdmin,
+    isAdmin,
+    loading,
+    
   };
   return (
     <AuthContext.Provider value={valueContext}>{children}</AuthContext.Provider>

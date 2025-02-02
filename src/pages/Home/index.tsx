@@ -1,12 +1,12 @@
 import useAuth from "../../hooks/useAuth";
 import { Button } from "@mui/material";
 import { Link, Outlet, useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {  getUsersById } from "../../api/api";
 
 const Home = () => {
-  const { isLoggedIn, logout } = useAuth();
-  const [isAdmin , setIsAdmin] = useState();
+  const { isLoggedIn, logout, getIsAdmin, isAdmin } = useAuth();
+  
 
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const Home = () => {
 
   const getUsers= async () =>{
     const usersAdmin = await getUsersById(isLoggedIn as string);
-    setIsAdmin(usersAdmin?.isAdmin);
+    getIsAdmin(usersAdmin?.isAdmin || false);
   }
 
 useEffect(()=>{

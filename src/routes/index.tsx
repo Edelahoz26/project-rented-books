@@ -1,8 +1,6 @@
 import React, { lazy, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 
-import AuthRoute from "../components/Protected/AuthRoute";
-import ProjectedRoute from "../components/Protected/ProjectedRoute";
 import { getUsersById } from "../api/api";
 import useAuth from "../hooks/useAuth";
 // Páginas de usuario
@@ -17,6 +15,10 @@ import ManageBooks from "../pages/Admin/ManageBooks";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import Reports from "../pages/Admin/Reports"; */
 
+// Rutas protegidas
+import AuthRoute from "../components/Protected/AuthRoute";
+import ProjectedRoute from "../components/Protected/ProjectedRoute";
+
 // Páginas públicas
 const Home = lazy(() => import("../pages/Home"));
 const Login = lazy(() => import("../pages/Auth/Login"));
@@ -26,7 +28,7 @@ const NotFound = lazy(() => import("../pages/NotFound"));
 //  Pagina de administrador
 const AdminDashboard = lazy(() => import("../pages/Admin"));
 const CreateBooks = lazy(
-  () => import("../components/Layout/Dashboard/DashboardBooks/Create")
+  () => import("../components/Layout/Dashboard/DashboardBooks/CreateBooks")
 );
 
 // Layouts Home
@@ -60,7 +62,7 @@ const AppRoutes: React.FC = () => {
           {isAdmin === true && (
             <Route path="/dashboard" element={<AdminDashboard />}>
               {/* Rutas hijas del layout de administrador */}
-              <Route index element={<h2>Bienvenido al Dashboard</h2>} />
+              <Route index element={<h2 className="text-blue-600">Bienvenido al Dashboard</h2>} />
               <Route path="create-books" element={<CreateBooks />} />
             </Route>
           )}

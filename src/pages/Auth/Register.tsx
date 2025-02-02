@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { ChangeEvent, useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { auth, db } from "../../firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -68,21 +68,7 @@ const Register = () => {
               name="name"
               onChange={handleInputChange}
               required
-              sx={{
-                width: "100%",
-                border: "1px solid hsl(220, 20%, 65%)",
-                borderRadius: "4px",
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "hsl(220, 20%, 65%)",
-                  },
-                },
-              }}
-              slotProps={{
-                input: {
-                  style: { color: "hsl(220, 20%, 65%)" },
-                },
-              }}
+              fullWidth
             />
             
             <TextField
@@ -93,21 +79,7 @@ const Register = () => {
               name="email"
               onChange={handleInputChange}
               required
-              sx={{
-                width: "100%",
-                border: "1px solid hsl(220, 20%, 65%)",
-                borderRadius: "4px",
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "hsl(220, 20%, 65%)",
-                  },
-                },
-              }}
-              slotProps={{
-                input: {
-                  style: { color: "hsl(220, 20%, 65%)" },
-                },
-              }}
+              fullWidth
             />
             <TextField
               id="filled-basic"
@@ -117,23 +89,11 @@ const Register = () => {
               name="password"
               required
               onChange={handleInputChange}
-              sx={{
-                width: "100%",
-                border: "1px solid hsl(220, 20%, 65%)",
-                borderRadius: "4px",
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "hsl(220, 20%, 65%)",
-                  },
-                },
-              }}
-              slotProps={{
-                input: {
-                  style: { color: "hsl(220, 20%, 65%)" },
-                },
-              }}
+              fullWidth
             />
-
+            <div>
+              <h1 className="text-white"> ¿Ya tienes una cuenta? <Link to={'/'} className="text-blue-700 hover:text-blue-600 cursor-pointer">Inicia sesión</Link></h1>
+            </div>
             <div className="flex justify-center w-full">
               <Button type="submit" variant="outlined">
                 Registrarse
