@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import CardHome from "../../Card"
 import { getBooks } from "../../../api/api";
-import { Book } from "../../../interfaces/API";
 import { CircularProgress } from "@mui/material";
+import { Book } from "../../../interfaces/Book";
 
 
 

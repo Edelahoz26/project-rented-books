@@ -32,19 +32,19 @@ const Register = () => {
     event.preventDefault(); 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      const user = userCredential.user
+      const user = userCredential.user;
       await setDoc(doc(db, 'users', user.uid), {
         name: formData.name,
         email: formData.email,
         isAdmin: false,
-      })
-     navigate('/libros');
+      });
+      navigate('/libros');
     } catch (error) {
       if (typeof error == 'undefined'){
         console.log('Error indefinido');
       }else{
-        const {message} = error as Error
-        console.log(message)
+        const {message} = error as Error;
+        console.log(message);
       }
     } 
 
