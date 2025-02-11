@@ -18,6 +18,7 @@ import Reports from "../pages/Admin/Reports"; */
 // Rutas protegidas
 import AuthRoute from "../components/Protected/AuthRoute";
 import ProjectedRoute from "../components/Protected/ProjectedRoute";
+import GetBooks from "../components/Layout/Dashboard/DashboardBooks/GetBooks";
 
 // Páginas públicas
 const Home = lazy(() => import("../pages/Home"));
@@ -64,6 +65,7 @@ const AppRoutes: React.FC = () => {
               {/* Rutas hijas del layout de administrador */}
               <Route index element={<h2 className="text-blue-600">Bienvenido al Dashboard</h2>} />
               <Route path="create-books" element={<CreateBooks />} />
+              <Route path="books" element={<GetBooks />} />
             </Route>
           )}
           <Route

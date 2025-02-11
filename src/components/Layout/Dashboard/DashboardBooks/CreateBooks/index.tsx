@@ -1,30 +1,64 @@
 import {  TextField, Button } from "@mui/material";
-import { ChangeEvent, useState } from "react";
-
-interface itemFormData {
-  autor: string;
-  name: string;
-  description: string;
-  imgLink: string;
-}
+import { ChangeEvent, FormEvent, useState } from "react";
+/* import { createBooksById } from "../../../../../api/api"; */
+import useAuth from "../../../../../hooks/useAuth";
+import { Book } from "../../../../../interfaces/Book";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../../../../firebase/firebaseConfig";
 
 const CreateBooks = () => {
-  const [formData, setFormData] = useState<itemFormData>({
+  const [formData, setFormData] = useState<Book>({
     autor: "",
     name: "",
     description: "",
     imgLink: "",
   })
 
+  const {isLoggedIn} = useAuth();
+
  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  const handleSubmit = async(event: React.FormEvent) => {
-      event.preventDefault(); 
-      
-
+  
+  const handleSubmit = async(event: FormEvent) => {
+      event.preventDefault();
+      try {
+        await addDoc(collection(db, 'books'), {
+          id: isLoggedIn,
+          autor: formData.autor,
+          name: formData.name,
+          description: formData.description,
+          imgLink: formData.imgLink,
+          createdAt: new Date(),
+        })
+        setFormData({
+          autor: "",
+          name: "",
+          description: "",
+          imgLink: "",
+        });
+        alert('Libro creado exitosamente')
+      } catch (error) {
+        if (typeof error == 'undefined') {
+          console.log(`Error al crear el Libro: ${error}`)
+        }
+      }
+/*       if (isLoggedIn && isAdmin) {
+        try {
+          await setDoc(doc(db, 'books', isLoggedIn), {
+            autor: formData.autor,
+            name: formData.name,
+            description: formData.description,
+            imgLink: formData.imgLink,
+            userID: isLoggedIn
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log("Usuario no esta logeado y no es Administrador");
+      } */
   }
   return (
     <div className="">

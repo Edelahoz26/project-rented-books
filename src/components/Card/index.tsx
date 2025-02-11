@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { FC } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { BookCardProps } from "../../interfaces/API";
+import { BookCardProps } from "../../interfaces/Book";
 
 
 
@@ -12,7 +12,7 @@ const CardHome: FC<BookCardProps> = ({items}) => {
       {items.map((item, index) => (
           <div className="max-w-sm bg-[#111418] border rounded-lg shadow border-zinc-800 hover:border-zinc-700 mb-10 transform hover:scale-105 transition-transform duration-300 ease-in-out " key={index}>
                 <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white ">
-                  <LazyLoadImage src={item.imgCard} alt="imgCard" className="object-contain h-full w-full"  />
+                  <LazyLoadImage src={item.imgLink} alt="imgCard" className="object-contain h-full w-full"  />
                </div>
               <div className="p-5 ">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{item.book}</h5>

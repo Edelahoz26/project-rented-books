@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs, query, updateDoc, DocumentData, QuerySnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { Book, BooksItem, User } from "../interfaces/API";
+import { User } from "../interfaces/API";
+import { Book } from "../interfaces/Book";
 
 const collectionName = '';
 
@@ -24,7 +25,7 @@ export const getUsersById = async (uid: string): Promise<User | undefined> => {
 };
 
 // Crear Libro
-export const createBooksById = async(uid:string, obj: Partial<BooksItem>): Promise<void> =>{
+export const createBooksById = async(uid:string, obj: Partial<Book>): Promise<void> =>{
     const userRef = doc(db, 'books', uid);
     await updateDoc(userRef, obj);
 }
@@ -36,8 +37,9 @@ export const getBooks = async (): Promise<Book[]> => {
     return getArrayFromCollection<Book>(result);
 };
 
+//
 const getArrayFromCollection = <T>(collection: QuerySnapshot<DocumentData>): T[] => {
     return collection.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id } as T;
+        return { ...doc.data(), id: doc.id, } as T;
     });
 };

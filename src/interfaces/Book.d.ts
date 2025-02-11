@@ -3,16 +3,16 @@ interface BookCardProps{
   }
 
 export interface Book {
-    book: string;
+    name: string;
     autor: string;
     description: string;
-    imgCard: string;
+    imgLink: string;
 }
 
-// create books
+/* // create books
 export interface CreateItemBook{
     autor: string;
     name: string;
     description: string;
     imgLink: string;
-}
+} */
