@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 /* import { createBooksById } from "../../../../../api/api"; */
 import useAuth from "../../../../../hooks/useAuth";
 import { Book } from "../../../../../interfaces/Book";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../../../firebase/firebaseConfig";
 
 const CreateBooks = () => {
@@ -30,7 +30,7 @@ const CreateBooks = () => {
           name: formData.name,
           description: formData.description,
           imgLink: formData.imgLink,
-          createdAt: new Date(),
+          createdAt: serverTimestamp(),
         })
         setFormData({
           autor: "",

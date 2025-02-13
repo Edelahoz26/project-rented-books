@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MaterialReactTable, MRT_ColumnDef } from "material-react-table";
 
 import { Book } from "../../../../../interfaces/Book";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../../../../firebase/firebaseConfig";
 import { Box, CircularProgress } from "@mui/material";
 
@@ -14,13 +14,14 @@ const GetBooks = () => {
 
   const getCard = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "books"));
+      const q = query(collection(db, 'books'), orderBy('createdAt', 'desc')); 
+      const querySnapshot = await getDocs(q);
       const booksData: Book[] = querySnapshot.docs.map((doc) => ({
         autor: doc.data().autor,
         name: doc.data().name,
         description: doc.data().description,
         imgLink: doc.data().imgLink,
-        createdAt: doc.data().createdAt?.toDate(), // Convierte Timestamp a Date
+        createdAt: doc.data().createdAt?.toDate(),
       }));
       setBookData(booksData);
     } catch (error) {

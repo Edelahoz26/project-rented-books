@@ -15,7 +15,7 @@ const CardHome: FC<BookCardProps> = ({items}) => {
                   <LazyLoadImage src={item.imgLink} alt="imgCard" className="object-contain h-full w-full"  />
                </div>
               <div className="p-5 ">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{item.book}</h5>
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{item.name}</h5>
                   <h5 className="mb-2 text-xl font-extrabold tracking-tight text-gray-400">{item.autor}</h5>
                   <p className="mb-3 font-normal text-gray-400">{item.description}</p>
                   <div className="flex justify-between">
