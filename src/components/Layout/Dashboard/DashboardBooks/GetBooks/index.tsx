@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react";
 import { MaterialReactTable, MRT_ColumnDef } from "material-react-table";
 import { Book } from "../../../../../interfaces/Book";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../../../../../firebase/firebaseConfig";
 import { Box, Button, CircularProgress, IconButton } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import UpdateBooks from "./UpdateBooks";
 
 //simple data example - Check out https://www.material-react-table.com/docs/examples/remote for a more complex example
 
 const GetBooks = () => {
   const [bookData, setBookData] = useState<Book[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [dataRowTable, setEditRowTable] = useState<Book>();
+  const [dataRowTable, setEditRowTable] = useState<Book>({
+    autor: "",
+    name: "",
+    description: "",
+    imgLink: "",
+  });
   const [loading, setLoading] = useState<boolean>(true);
 
-  const getCard = async () => {
-    try {
-      const q = query(collection(db, "books"), orderBy("createdAt", "desc"));
-      const querySnapshot = await getDocs(q);
+  useEffect(() => {
+    const q = query(collection(db, "books"), orderBy("createdAt", "desc"));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const booksData: Book[] = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
         autor: doc.data().autor,
         name: doc.data().name,
         description: doc.data().description,
@@ -26,15 +34,10 @@ const GetBooks = () => {
         createdAt: doc.data().createdAt?.toDate(),
       }));
       setBookData(booksData);
-    } catch (error) {
-      console.error(error);
-    } finally {
       setLoading(false);
-    }
-  };
+    });
 
-  useEffect(() => {
-    getCard();
+    return () => unsubscribe(); // Limpia la suscripción cuando el componente se desmonta
   }, []);
 
   // Definir las columnas de la tabla
@@ -131,16 +134,12 @@ const GetBooks = () => {
     <>
       {openModal ? (
         <div className="transition-all">
-          <div className="flex flex-col">
-            <label className="text-red-500">{dataRowTable?.autor}</label>
-            <label className="text-blue-500">{dataRowTable?.name}</label>
-            <label className="text-green-500">{dataRowTable?.imgLink}</label>
-          </div>
-
-          <Button variant="contained" onClick={() => setOpenModal(false)}>
+          <Button variant="contained" className="!ml-5 !mt-5" color="success" startIcon={<ArrowBackIcon />} onClick={() => setOpenModal(false)}>
             {" "}
             volver
           </Button>
+          <UpdateBooks dataRowTable={dataRowTable} setEditRowTable={setEditRowTable} setOpenModal={setOpenModal}/>
+          
         </div>
       ) : (
         <MaterialReactTable

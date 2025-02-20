@@ -6,11 +6,11 @@ import { Book } from "../interfaces/Book";
 const collectionName = '';
 
 // Update
-export const updateItem = async (id: string, obj: Partial<Book | User>): Promise<void> => {
-    const docRef = doc(db, collectionName, id);
+export const updateBook = async (id: string, obj: Partial<Book | User>): Promise<void> => {
+    const docRef = doc(db, 'books', id);
     await updateDoc(docRef, obj);
+    console.log('Libro actualizado exitosamente');
 };
-
 
 export const getUser = async (): Promise<User[]> => {
     const colRef = collection(db, 'users');
