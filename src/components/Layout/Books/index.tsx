@@ -4,12 +4,9 @@ import { getBooks } from "../../../api/api";
 import { CircularProgress } from "@mui/material";
 import { Book } from "../../../interfaces/Book";
 
-
-
 const Books = () => {
   const [bookData, setBookData] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
-
 
   const getCard = async() =>{
     try {
@@ -18,7 +15,7 @@ const Books = () => {
       setLoading(false);
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message)
+        console.error(error.message)
       }
     }  
   }

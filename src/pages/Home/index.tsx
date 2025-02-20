@@ -1,12 +1,12 @@
 import useAuth from "../../hooks/useAuth";
 import { Button } from "@mui/material";
 import { Link, Outlet, useNavigate } from "react-router";
-import { useEffect } from "react";
-import {  getUsersById } from "../../api/api";
+import { useEffect, useState } from "react";
+import { getUsersById } from "../../api/api";
 
 const Home = () => {
   const { isLoggedIn, logout, getIsAdmin, isAdmin } = useAuth();
-  
+  const [ indexSelected, setIndexSelected ] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -15,15 +15,14 @@ const Home = () => {
     navigate("/");
   };
 
-  const getUsers= async () =>{
+  const getUsers = async () => {
     const usersAdmin = await getUsersById(isLoggedIn as string);
     getIsAdmin(usersAdmin?.isAdmin || false);
-  }
+  };
 
-useEffect(()=>{
-  getUsers();
-},[]);
-  
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <>
@@ -33,20 +32,43 @@ useEffect(()=>{
             <nav className="h-[7%] w-full fixed top-0 left-0 right-0 z-50 border-b-[0.5px] border-b-slate-500  bg-custom-dark bg-backgroundCard bg-custom-gradient ">
               <div className=" h-full flex  relative z-50 ">
                 <div className="flex py-3 pl-4 gap-3 ">
-                  <Button className="w-40 " variant="contained" color="error" onClick={logoutUser}>
+                  <Button
+                    className="w-40 "
+                    variant="contained"
+                    color="error"
+                    onClick={logoutUser}
+                  >
                     cerrar seccion
                   </Button>
-                  {isAdmin &&
-                   <Button className="w-40 " variant="contained" color="primary" onClick={()=> navigate('/dashboard')}>
+                  {isAdmin && (
+                    <Button
+                      className="w-40 "
+                      variant="contained"
+                      color="primary"
+                      onClick={() => navigate("/dashboard")}
+                    >
                       Admin
-                  </Button>}
+                    </Button>
+                  )}
                 </div>
-                <ul className="flex h-full w-full justify-end space-x-8 items-center p-4 text-white ">
+                <ul className={`flex h-full w-full justify-end space-x-8 items-center p-4  `}>
                   <li className="font-medium text-xl">
-                    <Link to={"/libros"}>Libros</Link>
+                    <Link
+                      to={"/libros"}
+                      onClick={() => setIndexSelected("Libros")}
+                      className={`${indexSelected === 'Libros'? 'text-blue-600' : 'text-white'}`}
+                    >
+                      Libros
+                    </Link>
                   </li>
                   <li className="font-medium text-xl">
-                    <Link to={"/prestados"}>Prestados</Link>
+                    <Link
+                      to={"/prestados"}
+                      onClick={() => setIndexSelected("Prestados")}
+                      className={`${indexSelected === 'Prestados' ? 'text-blue-600' : 'text-white'}`}
+                    >
+                      Prestados
+                    </Link>
                   </li>
                 </ul>
               </div>
