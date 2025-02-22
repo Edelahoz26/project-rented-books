@@ -60,14 +60,15 @@ const AppRoutes: React.FC = () => {
             </ProjectedRoute>
           }
         >
-          {isAdmin === true && (
-            <Route path="/dashboard" element={<AdminDashboard />}>
-              {/* Rutas hijas del layout de administrador */}
-              <Route index element={<h2 className="text-blue-600">Bienvenido al Dashboard</h2>} />
-              <Route path="create-books" element={<CreateBooks />} />
-              <Route path="books" element={<GetBooks />} />
-            </Route>
-          )}
+            {isAdmin === true && (
+              <Route path="/dashboard" element={<AdminDashboard />}>
+                {/* Rutas hijas del layout de administrador */}
+                <Route index element={<h2 className="text-blue-600">Bienvenido al Dashboard</h2>} />
+                <Route path="create-books" element={<CreateBooks />} />
+                <Route path="books" element={<GetBooks />} />
+              </Route>
+            )}
+          
           <Route
             path="/libros"
             element={
@@ -85,9 +86,7 @@ const AppRoutes: React.FC = () => {
             }
           />
         </Route>
-        {/*         
-        <AdminDashboard />
-        <CreateBooks /> */}
+
         <Route
           path="/"
           element={

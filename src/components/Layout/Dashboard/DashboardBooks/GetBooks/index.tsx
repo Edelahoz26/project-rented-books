@@ -7,6 +7,7 @@ import { Box, Button, CircularProgress, IconButton } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import UpdateBooks from "./UpdateBooks";
+import { deleteBook } from "../../../../../api/api";
 
 //simple data example - Check out https://www.material-react-table.com/docs/examples/remote for a more complex example
 
@@ -113,14 +114,19 @@ const GetBooks = () => {
     },
   ];
 
+  //Actualiza los libros
   const handleEdit = (book: Book) => {
     setOpenModal(true);
     setEditRowTable(book);
-    console.log("Editing:", book);
   };
 
+  //Elimina los libros por su id
   const handleDelete = (book: Book) => {
-    console.log("Editing:", book);
+    if (book.id) {
+      deleteBook(book.id);
+    } else {
+      console.error("Book ID is undefined");
+    }
   };
 
   if (loading)

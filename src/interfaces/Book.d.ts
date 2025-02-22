@@ -1,7 +1,9 @@
+import { FieldValue } from "firebase/firestore";
 import React from "react";
 
 interface BookCardProps{
-    items: Book[]
+    items: Book[];
+    rentBook: (bookData: Book) => void;    
   }
 
 export interface Book {
@@ -10,6 +12,7 @@ export interface Book {
     description: string;
     imgLink: string;
     id?: string;
+    updatedAt?: FieldValue;
 }
 
 //actualizacion

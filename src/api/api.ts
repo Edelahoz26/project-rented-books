@@ -1,15 +1,20 @@
-import { collection, doc, getDoc, getDocs, query, updateDoc, DocumentData, QuerySnapshot } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, updateDoc, DocumentData, QuerySnapshot, deleteDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { User } from "../interfaces/API";
 import { Book } from "../interfaces/Book";
 
-const collectionName = '';
-
-// Update
+// Update book
 export const updateBook = async (id: string, obj: Partial<Book | User>): Promise<void> => {
     const docRef = doc(db, 'books', id);
     await updateDoc(docRef, obj);
     console.log('Libro actualizado exitosamente');
+};
+
+// Delete Books
+export const deleteBook = async (bookId: string): Promise<void> => {
+    const bookRef = doc(db, 'books', bookId);
+    await deleteDoc(bookRef);
+    console.log('Libro eliminado exitosamente');
 };
 
 export const getUser = async (): Promise<User[]> => {
@@ -36,6 +41,21 @@ export const getBooks = async (): Promise<Book[]> => {
     const result = await getDocs(query(colRef));
     return getArrayFromCollection<Book>(result);
 };
+
+// Añade los libros rentado a la tabla de users con el campo de rentedBooks
+export const rentBookToUser = async (userId: string, bookData: object): Promise<void> => {
+    try {
+      const userRef = doc(db, "users", userId);
+  
+      await updateDoc(userRef, {
+        rentedBooks: arrayUnion(bookData), // Agrega el libro al array
+      });
+  
+      alert("Libro rentado exitosamente");
+    } catch (error) {
+      console.error(`Error al rentar el libro: ${error}`);
+    }
+  };
 
 //
 const getArrayFromCollection = <T>(collection: QuerySnapshot<DocumentData>): T[] => {

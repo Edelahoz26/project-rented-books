@@ -1,4 +1,4 @@
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Box } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
 /* import { createBooksById } from "../../../../../api/api"; */
 import useAuth from "../../../../../hooks/useAuth";
@@ -23,6 +23,11 @@ const CreateBooks = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    if (!formData.autor.trim() || !formData.name.trim() || !formData.description.trim() || !formData.imgLink.trim()) {
+      alert("Todos los campos son obligatorios.");
+      return;
+    }
+
     if (isLoggedIn && isAdmin) {
       try {
         await addDoc(collection(db, "books"), {
@@ -63,6 +68,8 @@ const CreateBooks = () => {
             name="name"
             required
           />
+          <Box sx={{ width: 500, maxWidth: '100%' }}>
+
           <TextField
             label="Descripcion"
             variant="outlined"
@@ -70,7 +77,11 @@ const CreateBooks = () => {
             onChange={handleInputChange}
             name="description"
             required
+            multiline
+            fullWidth
+            rows={8}
           />
+          </Box>
           <TextField
             label="Link de la imagen"
             variant="outlined"
@@ -80,7 +91,7 @@ const CreateBooks = () => {
             required
           />
         </div>
-        <Button type="submit" variant="outlined" size="large">
+        <Button type="submit" variant="outlined" size="large" disabled={!formData.autor.trim() || !formData.name.trim() || !formData.description.trim() || !formData.imgLink.trim()}>
           Crear Libro
         </Button>
       </form>
