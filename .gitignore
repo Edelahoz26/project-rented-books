@@ -30,9 +30,6 @@ Thumbs.db
 firebase-debug.log
 firebaserc
 
-# Tailwind CSS
-tailwind.config.js
-postcss.config.js
 
 # Optional: Coverage and test reports
 coverage/
