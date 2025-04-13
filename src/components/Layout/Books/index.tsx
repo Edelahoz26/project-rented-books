@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import CardHome from "../../Card";
-import { getBooks, rentBookToUser } from "../../../api/api";
+import { getBooks, getUsersById, rentBookToUser } from "../../../api/api";
 import { CircularProgress } from "@mui/material";
 import { Book } from "../../../interfaces/Book";
 import useAuth from "../../../hooks/useAuth";
 
 const Books = () => {
   const [bookData, setBookData] = useState<Book[]>([]);
-
+  const [indexBook, setIndexBook] = useState<number | undefined>(undefined);
+  
   const [loading, setLoading] = useState(true);
 
   const { isLoggedIn } = useAuth();
@@ -37,10 +38,35 @@ const Books = () => {
     }
   };
 
+  const getBookUserById = async() => {
+    try {
+      if (isLoggedIn) {
+        const response = await getUsersById(isLoggedIn)
+
+              if (indexBook !== undefined) {
+                if (Array.isArray(response?.rentedBooks)) {
+                  console.log(response?.rentedBooks[indexBook]);
+                } else {
+                  console.error("rentedBooks is not an array");
+                }
+              }
+
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  console.log(indexBook, 'prueba indexx')
   useEffect(() => {
     getCard();
-   
   }, []);
+
+  useEffect(() => {
+    getBookUserById();
+  }, [indexBook]);
+
 
   if (loading)
     return (
@@ -49,7 +75,7 @@ const Books = () => {
       </div>
     );
 
-  return <CardHome items={bookData} rentBook={rentBook}/>;
+  return <CardHome items={bookData} rentBook={rentBook} setIndexBook={setIndexBook}/>;
 };
 
 export default Books;

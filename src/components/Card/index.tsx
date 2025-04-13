@@ -2,9 +2,9 @@ import { Button } from "@mui/material";
 import { FC } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { BookCardProps } from "../../interfaces/Book";
-import { serverTimestamp } from "firebase/firestore";
 
-const CardHome: FC<BookCardProps> = ({ items, rentBook }) => {
+const CardHome: FC<BookCardProps> = ({ items, rentBook, setIndexBook }) => {
+  
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-16 pb-0 md:px-36  justify-items-center ">
       {items.map((item, index) => (
@@ -53,10 +53,11 @@ const CardHome: FC<BookCardProps> = ({ items, rentBook }) => {
                     description: item.description,
                     name: item.name,
                     imgLink: item.imgLink,
-                    updatedAt: serverTimestamp()
+                    available: true, //disponible = available
                   };
                   if (rentBook) {
                     rentBook(bookData);
+                    setIndexBook(index)
                   }
                 }
                   

@@ -3,17 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 import { getUsersById } from "../api/api";
 import useAuth from "../hooks/useAuth";
-// Páginas de usuario
-/* import Home from "../pages/User/Home";
-import BookDetails from "../pages/User/BookDetails";
-import MyRentals from "../pages/User/MyRentals";
-import Profile from "../pages/User/Profile"; */
-
-// Páginas de administrador
-/* import Dashboard from "../pages/Admin/Dashboard";
-import ManageBooks from "../pages/Admin/ManageBooks";
-import ManageUsers from "../pages/Admin/ManageUsers";
-import Reports from "../pages/Admin/Reports"; */
 
 // Rutas protegidas
 import AuthRoute from "../components/Protected/AuthRoute";
@@ -104,37 +93,6 @@ const AppRoutes: React.FC = () => {
           }
         />
 
-        {/* Rutas protegidas para usuarios */}
-        {/*         <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <UserLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Home />} />
-          <Route path="book/:id" element={<BookDetails />} />
-          <Route path="my-rentals" element={<MyRentals />} />
-          <Route path="profile" element={<Profile />} />
-        </Route> */}
-
-        {/* Rutas protegidas para administradores */}
-        {/*         <Route
-          path="/admin"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Dashboard />} />
-          <Route path="manage-books" element={<ManageBooks />} />
-          <Route path="manage-users" element={<ManageUsers />} />
-          <Route path="reports" element={<Reports />} />
-        </Route> */}
-
-        {/* Ruta para 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

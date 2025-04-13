@@ -3,7 +3,8 @@ import React from "react";
 
 interface BookCardProps{
     items: Book[];
-    rentBook: (bookData: Book) => void;    
+    rentBook: (bookData: Book) => void;
+    setIndexBook: (index: number) => void;
   }
 
 export interface Book {
@@ -12,6 +13,7 @@ export interface Book {
     description: string;
     imgLink: string;
     id?: string;
+    available?: boolean;
     updatedAt?: FieldValue;
 }
 
